@@ -21,4 +21,17 @@ ReactDOM.render(
         flux={flux}
         render={() => <Application />} />, document.getElementById('app'));
 
-flux.getActions("editVideo").getFilters();
+let str = JSON.stringify([{
+    "time":2,
+    "duration":1,
+    "x":40,
+    "y":40,
+    "width":40,
+    "height":40,
+    "type": "1"
+}, {
+    "time": 2,
+    "duration": 1,
+    "type": "0"
+}]);
+flux.getActions("editVideo").setFilters(str);
