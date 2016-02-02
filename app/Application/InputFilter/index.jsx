@@ -1,32 +1,42 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import styles from "./style";
 
 export default class InputFilter extends React.Component {
-
-    constructor() {
-        super();
-        this.state = {
-            value: JSON.stringify([{time:2,duration:1,x:40,y:40,width:40,height:40}])
-        };
+    handleChange(event) {
+        let value = event.target.value;
+        this.setState({
+            value: value
+        });
+        this.props.flux.getActions("editVideo").setFilters(JSON.parse(value));
     }
 
-    handleChange(event) {
-        let a = "";
-        try {
-            let a = JSON.parse(event.target.value)
-        } catch(e){
-            alert(e);
-            return
-        }
-        this.setState({
-            value: a
-        });
+    componentWillMount() {
+        let testValue = [{
+            "time":2,
+            "duration":1,
+            "x":40,
+            "y":40,
+            "width":40,
+            "height":40,
+            "type": "1"
+        }, {
+            "time": 5,
+            "duration": 5,
+            "type": "0"
+        }];
+        this.state = {
+            value: JSON.stringify(testValue)
+        };
+        this.props.flux.getActions("editVideo").setFilters(testValue);
     }
 
     render() {
         return (
-            <textarea value={this.state.value} onChange={this.handleChange.bind(this)}></textarea>
+            <div className="l-input_filter">
+                <div className="b-input_filter_container">
+                    <textarea  value={this.state.value} onChange={this.handleChange.bind(this)}></textarea>
+                </div>
+            </div>
         );
     }
 

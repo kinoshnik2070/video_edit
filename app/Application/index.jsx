@@ -14,8 +14,8 @@ export default class Application extends React.Component {
             render={storeState => {
                return <div className="b-page">
                    <VideoPlayer {...storeState} />
+                   <InputFilter {...storeState} />
                    <Timeline {...storeState} />
-                   <InputFilter />
                </div>;
            }} />;
     }

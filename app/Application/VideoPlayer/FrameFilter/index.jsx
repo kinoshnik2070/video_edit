@@ -1,5 +1,6 @@
 import React from "react";
 import Filter from "./index";
+import style from "./style";
 
 export default class FrameFilter extends React.Component {
     constructor(options) {
@@ -11,10 +12,10 @@ export default class FrameFilter extends React.Component {
         const filter = this.props.filter;
 
         let style = {
-            width: filter.width || 0,
-            height:filter.height || 0,
-            top: filter.y || 0,
-            left: filter.x || 0
+            width: filter.width,
+            height:filter.height,
+            top: filter.y,
+            left: filter.x
         };
         let className = "b-filter_frame";
 

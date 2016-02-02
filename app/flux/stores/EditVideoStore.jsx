@@ -16,8 +16,7 @@ export default class EditVideoStore extends Store {
         this.state = {
             currentTime: 0,
             durationTime: 0,
-            filters: [],
-            value: ""
+            filters: []
         }
     }
 
@@ -34,7 +33,7 @@ export default class EditVideoStore extends Store {
     }
 
     handleSetFilters(filters) {
-        let data = JSON.parse(filters);
+        let data = filters;
         let arr = [];
         for(let i = 0; i < data.length; i++) {
             switch (data[i].type) {
