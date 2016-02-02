@@ -36,7 +36,9 @@ export default class VideoPlayer extends React.Component {
                         <div className="b-video_player-overlay"></div>
                         <div className="b-video_player_controls">
                             <div className="b-video_player_controls-play">
-                                <div className="b-video_player_controls-play_button" onClick={this.onPlay.bind(this)}>PLAY</div>
+                                <div className="b-video_player_controls-play_button" onClick={this.onPlay.bind(this)}>
+                                    PLAY
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -56,17 +58,18 @@ export default class VideoPlayer extends React.Component {
 
     updateCurrentTime(event) {
         let el = event.target;
+
         for(let i = 0; i < this.props.filters.length; i++) {
             this.props.filters[i].update(el);
         }
-
-        this.props.flux.getActions("editVideo").updateCurrentTime(el.currentTime);
 
         if(el.currentTime === el.duration) {
             this.setState({
                 isPlay: false
             });
         }
+
+        this.props.flux.getActions("editVideo").updateCurrentTime(el.currentTime);
     }
 
     updateDurationTime(event) {

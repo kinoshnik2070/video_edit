@@ -11,7 +11,8 @@ export default class EditVideoStore extends Store {
 
         this.register(editVideoActionsIds.updateCurrentTime, this.handleUpdateCurrentTime);
         this.register(editVideoActionsIds.updateDurationTime, this.handleUpdateDurationTime);
-        this.register(editVideoActionsIds.setFilters, this.handleSetFilters);
+        this.register(editVideoActionsIds.getFilters, this.handleGetFilters);
+        this.register(editVideoActionsIds.setFilters, this.handleGetFilters);
 
         this.state = {
             currentTime: 0,
@@ -32,7 +33,7 @@ export default class EditVideoStore extends Store {
         });
     }
 
-    handleSetFilters(filters) {
+    handleGetFilters(filters) {
         let data = filters;
         let arr = [];
         for(let i = 0; i < data.length; i++) {
@@ -49,6 +50,10 @@ export default class EditVideoStore extends Store {
         this.setState({
             filters: arr
         });
+    }
+
+    handleSetFilters() {
+        debugger
     }
 
 }

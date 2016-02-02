@@ -12,18 +12,18 @@ export default class Timeline extends React.Component {
 
         let filters = [];
         let filter;
-        let filterStyle;
+        let position;
+        let className = "";
         for(let i = 0; i < this.props.filters.length; i++) {
             filter = this.props.filters[i];
-            filterStyle = {
+            position = {
                 left: width * (filter.time / (this.props.durationTime || 1)),
-                width: width * (filter.duration / (this.props.durationTime || 1)),
-                background: "orange",
-                position: "relative",
-                height: "20px"
+                width: width * (filter.duration / (this.props.durationTime || 1))
             };
+            className = "b-timeline_filter";
+            className += " b-timeline_filter--" + filter.constructor.name;
             filters.push(
-                <div key={i} style={filterStyle}></div>
+                <div className={className} key={i} style={position}></div>
             );
         }
 
