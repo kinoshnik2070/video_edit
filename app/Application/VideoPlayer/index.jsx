@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./style";
-import video from "./video1.mp4";
+import video from "./video2.mp4";
 import FrameFilter from "../Filter";
 
 export default class VideoPlayer extends React.Component {

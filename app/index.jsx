@@ -10,10 +10,8 @@ const flux = new EditVideoFlux();
 
 /*
 * TODO:
-* Добавить более длинный файл
 * Поправить форму ввода
 * Изменить дизайн
-* Не происходит проигрывание видео при раннем фильтре
 * */
 
 ReactDOM.render(
@@ -30,8 +28,8 @@ let str = JSON.stringify([{
     "height":40,
     "type": "1"
 }, {
-    "time": 2,
-    "duration": 1,
+    "time": 5,
+    "duration": 5,
     "type": "0"
 }]);
 flux.getActions("editVideo").setFilters(str);
