@@ -61,7 +61,8 @@ export default class EditVideoStore extends Store {
             filter[key] = options[key];
         }
         this.forceUpdate();
-        this.flux.getActions("editVideo").setFilters(this.state.filters);
+        //очень плохо, нужно исправить
+        localStorage["filter"] = JSON.stringify(this.state.filters);
     }
 
 }
