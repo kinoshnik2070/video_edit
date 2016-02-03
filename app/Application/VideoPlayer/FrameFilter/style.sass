@@ -4,10 +4,12 @@
   position: absolute
 
 .b-filter_frame
-  position: absolute
-  z-index: 200
+  position: relative
   display: none
   border: 1px solid orange
+  box-sizing: border-box
+  cursor: pointer
+  z-index: 600
 
 .b-filter_frame--visible
   display: inline-block
@@ -19,26 +21,11 @@
 
 .b-filter_frame_control
   position: absolute
-  width: 6px
-  height: 6px
+  width: 10px
+  height: 10px
   background-color: orange
-
-.b-filter_frame_controls--left_top
-  left: -2px
-  top: -2px
-  cursor: nwse-resize
-
-.b-filter_frame_controls--right_top
-  right: -2px
-  top: -2px
-  cursor: nesw-resize
 
 .b-filter_frame_controls--right_bottom
   right: -2px
   bottom: -2px
   cursor: nwse-resize
-
-.b-filter_frame_controls--left_bottom
-  left: -2px
-  bottom: -2px
-  cursor: nesw-resize

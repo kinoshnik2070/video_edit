@@ -1,7 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import styles from "./style";
-import FilterType from "../../flux/enums/FilterType";
+import Filter from "./Filter";
 
 export default class Timeline extends React.Component {
     render() {
@@ -12,25 +11,17 @@ export default class Timeline extends React.Component {
         };
 
         let filters = [];
-        let filter;
-        let position;
-        let className = "";
-        let key;
         for(let i = 0; i < this.props.filters.length; i++) {
-            filter = this.props.filters[i];
-            position = {
-                left: width * (filter.time / (this.props.durationTime || 1)),
-                width: width * (filter.duration / (this.props.durationTime || 1))
-            };
-            className = "b-timeline_filter";
-            for(key in FilterType) {
-                if(FilterType[key] == filter.type) {
-                    break;
-                }
-            }
-            className += " b-timeline_filter--" + key;
             filters.push(
-                <div className={className} key={i} style={position}></div>
+                <Filter
+                    filter={this.props.filters[i]}
+                    x={width}
+                    key={i}
+                    id={i}
+                    currentTime={this.props.currentTime}
+                    durationTime={this.props.durationTime}
+                    flux={this.props.flux}
+                    maxWidth={width}/>
             );
         }
 

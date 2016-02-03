@@ -7,12 +7,15 @@ export default class EditVideoStore extends Store {
     constructor(flux) {
         super();
 
+        this.flux = flux;
+
         const editVideoActionsIds = flux.getActionIds("editVideo");
 
         this.register(editVideoActionsIds.updateCurrentTime, this.handleUpdateCurrentTime);
         this.register(editVideoActionsIds.updateDurationTime, this.handleUpdateDurationTime);
         this.register(editVideoActionsIds.getFilters, this.handleGetFilters);
         this.register(editVideoActionsIds.setFilters, this.handleGetFilters);
+        this.register(editVideoActionsIds.setPositionFrame, this.handleSetPositionFrame);
 
         this.state = {
             currentTime: 0,
@@ -52,8 +55,13 @@ export default class EditVideoStore extends Store {
         });
     }
 
-    handleSetFilters() {
-        debugger
+    handleSetPositionFrame(options) {
+        let filter = this.state.filters[options.id];
+        for(let key in options) {
+            filter[key] = options[key];
+        }
+        this.forceUpdate();
+        this.flux.getActions("editVideo").setFilters(this.state.filters);
     }
 
 }

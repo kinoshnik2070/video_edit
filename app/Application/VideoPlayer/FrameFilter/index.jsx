@@ -7,20 +7,11 @@ export default class FrameFilter extends React.Component {
         super(options);
 
         this.state = {
-          isClick: false
+            dragStartX: 0,
+            dragStartY: 0,
+            isMove: false,
+            isResize: false
         };
-    }
-
-    handleOnDragStart(event) {
-        debugger
-    }
-
-    handleOnDagOver(event) {
-        console.info(arguments);
-    }
-
-    handleOnDragEnd(event) {
-
     }
 
     render() {
@@ -40,33 +31,11 @@ export default class FrameFilter extends React.Component {
         }
 
         return (
-            <div
-                className="b-filter_frame_container">
-                <div className={className} style={style}>
+            <div ref="b" className="b-filter_frame_container" >
+                <div ref="a" className={className} style={style} onMouseDown={this.handleMouseDown.bind(this)} onMouseOut={this.handleMouseOut.bind(this)} onMouseMove={this.handleMouseMove.bind(this)} onMouseUp={this.handleMouseUp.bind(this)}>
                     <div className="b-filter_frame_controls">
                         <div
-                            className="b-filter_frame_control b-filter_frame_controls--left_top"
-                            onDragStart={this.handleOnDragStart.bind(this)}
-                            onDragOver={this.handleOnDagOver.bind(this)}
-                            onDragEnd={this.handleOnDragEnd.bind(this)}>
-                        </div>
-                        <div
-                            className="b-filter_frame_control b-filter_frame_controls--right_top"
-                            onDragStart={this.handleOnDragStart.bind(this)}
-                            onDragOver={this.handleOnDagOver.bind(this)}
-                            onDragEnd={this.handleOnDragEnd.bind(this)}>
-                        </div>
-                        <div
-                            className="b-filter_frame_control b-filter_frame_controls--right_bottom"
-                            onDragStart={this.handleOnDragStart.bind(this)}
-                            onDragOver={this.handleOnDagOver.bind(this)}
-                            onDragEnd={this.handleOnDragEnd.bind(this)}>
-                        </div>
-                        <div
-                            className="b-filter_frame_control b-filter_frame_controls--left_bottom"
-                            onDragStart={this.handleOnDragStart.bind(this)}
-                            onDragOver={this.handleOnDagOver.bind(this)}
-                            onDragEnd={this.handleOnDragEnd.bind(this)}>
+                            className="b-filter_frame_control b-filter_frame_controls--right_bottom">
                         </div>
                     </div>
                 </div>
@@ -74,4 +43,49 @@ export default class FrameFilter extends React.Component {
         );
     }
 
+    handleMouseMove(event) {
+        if(this.state.isMove) {
+            //TODO: Поправить выход за пределы экрана
+            let x = Math.abs(parseInt(this.props.filter.x) + event.nativeEvent.offsetX - this.state.offsetX);
+            let y = Math.abs(parseInt(this.props.filter.y) + event.nativeEvent.offsetY - this.state.offsetY);
+            this.props.flux.getActions("editVideo").setPositionFrame(this.props.id, {x: x, y: y});
+        } else if(this.state.isResize) {
+            let width = this.props.filter.width + (event.nativeEvent.offsetX - this.state.offsetX);
+            let height = this.props.filter.height + (event.nativeEvent.offsetY - this.state.offsetY);
+            this.props.flux.getActions("editVideo").setPositionFrame(this.props.id, {width: width, height: height});
+        }
+    }
+
+    handleMouseDown(event) {
+        switch(event.target.className) {
+            case "b-filter_frame_control b-filter_frame_controls--right_bottom":
+                this.setState({
+                    isResize: true,
+                    offsetX: event.nativeEvent.offsetX,
+                    offsetY: event.nativeEvent.offsetY
+                });
+                break;
+            default:
+                this.setState({
+                    isMove: true,
+                    offsetX: event.nativeEvent.offsetX,
+                    offsetY: event.nativeEvent.offsetY
+                });
+                break
+        }
+    }
+
+    handleMouseUp(event) {
+        this.setState({
+            isMove: false,
+            isResize: false
+        });
+    }
+
+    handleMouseOut(event) {
+       this.setState({
+            isMove: false,
+            isResize: false
+        });
+    }
 }

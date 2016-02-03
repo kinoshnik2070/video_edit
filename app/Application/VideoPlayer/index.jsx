@@ -20,7 +20,12 @@ export default class VideoPlayer extends React.Component {
             switch (this.props.filters[i].type) {
                 case FilterType.FrameFilter:
                     filter.push(
-                        <FrameFilter key={i} filter={this.props.filters[i]} currentTime={this.props.currentTime} />
+                        <FrameFilter
+                            key={i}
+                            filter={this.props.filters[i]}
+                            currentTime={this.props.currentTime}
+                            flux={this.props.flux}
+                            id={i}/>
                     );
                     break
             }
@@ -29,19 +34,10 @@ export default class VideoPlayer extends React.Component {
         if(this.state.isPlay) {
             style.display = "none";
         }
+
         return (
             <div className="l-video_player">
                 <div className="b-video_player_container">
-                    <div className="b-video_player_controls-container" style={style}>
-                        <div className="b-video_player-overlay"></div>
-                        <div className="b-video_player_controls">
-                            <div className="b-video_player_controls-play">
-                                <div className="b-video_player_controls-play_button" onClick={this.onPlay.bind(this)}>
-                                    PLAY
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     {filter}
                     <video
                         className="b-video_player"
@@ -52,6 +48,8 @@ export default class VideoPlayer extends React.Component {
                         <source src={video} type="video/mp4" />
                     </video>
                 </div>
+                <button onClick={this.onPlay.bind(this)}>Start</button>
+                <button onClick={this.onStop.bind(this)}>Stop</button>
             </div>
         );
     }

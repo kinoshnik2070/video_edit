@@ -18,7 +18,7 @@ export default class EditVideoActions extends Actions {
         if(!item) {
             let exampleFilter = [{
                 "time":2,
-                "duration":1,
+                "duration":4,
                 "x":40,
                 "y":40,
                 "width":40,
@@ -42,7 +42,7 @@ export default class EditVideoActions extends Actions {
                 "type":"0"
             },{
                 "time":20,
-                "duration":40,
+                "duration":10,
                 "x":240,
                 "y":140,
                 "width":40,
@@ -58,5 +58,10 @@ export default class EditVideoActions extends Actions {
     setFilters(filters) {
         localStorage.setItem("filters", JSON.stringify(filters));
         return filters;
+    }
+
+    setPositionFrame(id, options) {
+        options.id = id;
+        return options;
     }
 }
