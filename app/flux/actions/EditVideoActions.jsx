@@ -64,4 +64,12 @@ export default class EditVideoActions extends Actions {
         options.id = id;
         return options;
     }
+
+    mouseDown(options) {
+        return options;
+    }
+
+    clearMd(options) {
+        return null;
+    }
 }

@@ -30,13 +30,13 @@ export default class VideoPlayer extends React.Component {
                     break
             }
         }
-        let style = {};
-        if(this.state.isPlay) {
-            style.display = "none";
-        }
 
         return (
-            <div className="l-video_player">
+            <div
+                className="l-video_player"
+                onMouseMove={this.handleMouseMove.bind(this)}
+                onMouseUp={this.handleMouseUp.bind(this)}
+                ref="a">
                 <div className="b-video_player_container">
                     {filter}
                     <video
@@ -88,5 +88,32 @@ export default class VideoPlayer extends React.Component {
             isPlay: false
         });
         event.stopPropagation();
+    }
+
+    handleMouseMove(event) {
+        if(this.props.md) {
+            let x = event.nativeEvent.pageX - this.refs.a.offsetLeft;
+            let y = event.nativeEvent.pageY - this.refs.a.offsetTop;
+            switch(this.props.md.action) {
+                case "resizeFrame":
+                    this.props.flux.getActions("editVideo").setPositionFrame(this.props.md.id, {
+                        width: x - this.props.md.filter.x + this.props.md.offsetX,
+                        height: y - this.props.md.filter.y + this.props.md.offsetY
+                    });
+                    break;
+                case "moveFrame":
+                    this.props.flux.getActions("editVideo").setPositionFrame(this.props.md.id, {
+                        x: x -this.props.md.offsetX,
+                        y: y -this.props.md.offsetY
+                    });
+                    break;
+            }
+        }
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
+    handleMouseUp(event) {
+        this.props.flux.getActions("editVideo").clearMd();
     }
 }

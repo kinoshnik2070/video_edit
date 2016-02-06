@@ -16,11 +16,14 @@ export default class EditVideoStore extends Store {
         this.register(editVideoActionsIds.getFilters, this.handleGetFilters);
         this.register(editVideoActionsIds.setFilters, this.handleGetFilters);
         this.register(editVideoActionsIds.setPositionFrame, this.handleSetPositionFrame);
+        this.register(editVideoActionsIds.mouseDown, this.handleMouseDown);
+        this.register(editVideoActionsIds.clearMd, this.handleClearMd);
 
         this.state = {
             currentTime: 0,
             durationTime: 0,
-            filters: []
+            filters: [],
+            md: null
         }
     }
 
@@ -64,5 +67,18 @@ export default class EditVideoStore extends Store {
         //очень плохо, нужно исправить
         localStorage["filter"] = JSON.stringify(this.state.filters);
     }
+
+    handleMouseDown(options) {
+        this.setState({
+            md: options
+        });
+        //this.state.md = options;
+    }
+    handleClearMd() {
+        this.setState({
+            md: null
+        });
+    }
+
 
 }
