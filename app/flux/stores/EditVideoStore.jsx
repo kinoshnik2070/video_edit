@@ -65,15 +65,15 @@ export default class EditVideoStore extends Store {
         }
         this.forceUpdate();
         //очень плохо, нужно исправить
-        localStorage["filter"] = JSON.stringify(this.state.filters);
+        localStorage["filters"] = JSON.stringify(this.state.filters);
     }
 
     handleMouseDown(options) {
         this.setState({
             md: options
         });
-        //this.state.md = options;
     }
+
     handleClearMd() {
         this.setState({
             md: null

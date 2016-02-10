@@ -37,10 +37,6 @@ export default class EditVideoActions extends Actions {
                 "duration":21,
                 "type":"0"
             },{
-                "time":5,
-                "duration":5,
-                "type":"0"
-            },{
                 "time":20,
                 "duration":10,
                 "x":240,

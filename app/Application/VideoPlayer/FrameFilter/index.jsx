@@ -49,7 +49,8 @@ export default class FrameFilter extends React.Component {
             id: this.props.id,
             action: "moveFrame",
             offsetX: event.nativeEvent.offsetX,
-            offsetY: event.nativeEvent.offsetY
+            offsetY: event.nativeEvent.offsetY,
+            filter: this.props.filter
         });
     }
 }

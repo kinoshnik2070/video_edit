@@ -38,16 +38,31 @@ export default class Timeline extends React.Component {
     }
 
     handleMouseMove(event) {
+        let time;
+        let duration;
         if(this.props.md) {
             let x = (event.nativeEvent.pageX - this.refs.element.offsetLeft) || 1;
             switch(this.props.md.action) {
                 case "changeStartTime":
-                    let time = ((this.props.md.durationTime * (x- this.props.md.offsetX)) / this.props.md.x);
-                    let timeDx = this.props.md.filter.duration + this.props.md.filter.time - time;
-                    this.props.flux.getActions("editVideo").setPositionFrame(this.props.md.id, {time: time, duration: timeDx});
+                    time = ((this.props.md.durationTime * (x - this.props.md.offsetX)) / this.props.md.x);
+                    time = time < 0 ? 0 : time;
+                    duration = this.props.md.filter.duration + this.props.md.filter.time - time;
+                    if(duration < 0) {
+                        duration = 0;
+                        return;
+                    }
+                    this.props.flux.getActions("editVideo").setPositionFrame(this.props.md.id, {
+                        time: time,
+                        duration: duration
+                    });
+
                     break;
                 case "changeDurationTime":
-                    let duration = ((this.props.md.durationTime * (x+this.props.md.offsetX)) / this.props.md.x) - this.props.md.filter.time;
+                    duration = ((this.props.md.durationTime * (x+this.props.md.offsetX)) / this.props.md.x) - this.props.md.filter.time;
+                    if(duration < 0) {
+                        duration = 0;
+                        return;
+                    }
                     this.props.flux.getActions("editVideo").setPositionFrame(this.props.md.id, {duration: duration});
             }
         }

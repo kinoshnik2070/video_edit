@@ -7,7 +7,7 @@ export default class ClippingFilter extends Filter{
 
     update(video) {
         if(this.isActive(video.currentTime)) {
-            video.currentTime = this.time + this.duration;
+            video.currentTime = this.time + this.duration + 0.0001;
         }
     }
 }
